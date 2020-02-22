@@ -60,67 +60,57 @@ function App() {
             <Button variant="dark">Enter</Button>
           </Form>
         </div>
-      </Navbar>
-
-        <Form>
-          <Form.Group as={Row} controlId="formPlaintextHouseholdNumber">
-            <Col sm="2" md={{ span: 2 }} id ="groceryList">
+      </Navbar> 
               <Row>
-                <ShoppingList />
-              </Row>
-            </Col>
+                <Col id ="groceryList">
+                  <Row>
+                    <ShoppingList />
+                  </Row>
+                </Col>
 
-            <Col sm="10" md={{ span: 6}}>
-              <Row></Row>
-              
-              <Row>
-                <MDBContainer>
+                <Col>
+                  <MDBContainer>
                     <h3 id="chartTitle">Nutritional Information</h3>
-                  <HorizontalBar
-                    data={state.dataHorizontal}
-                    options={{ responsive: true }}
-                  />
-                </MDBContainer>
-              </Row>
-              
-              <Row>
-                <Col>
-                  <label id="xAxis">
-                    Percent of Daily Values
-                  </label>
-                </Col>
-              </Row>
-              
-              <Row>
-                <Col>
-                  <label id="numbersLabel">
-                    Number of Servings
-                  </label>
-                </Col>
+                    <HorizontalBar
+                      data={state.dataHorizontal}
+                      options={{ responsive: true }}
+                    />
+                  </MDBContainer>
+                  <Row>
+                    <Col>
+                      <label id="xAxis">
+                        Percent of Daily Values
+                      </label>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <label id="numbersLabel">
+                        Number of Servings
+                      </label>
+                    </Col>
 
-                <Col>
-                  <label id="numbersLabel">
-                    Number of Servings
-                  </label>
+                    <Col>
+                      <label id="numbersLabel">
+                        Number of Servings
+                      </label>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <label id="numbers">
+                        25
+                      </label>
+                    </Col>
+
+                    <Col>
+                      <label id="numbers">
+                        25
+                      </label>
+                    </Col>
+                  </Row>
                 </Col>
               </Row>
-
-              <Row>
-                <Col>
-                  <label id="numbers">
-                    25
-                  </label>
-                </Col>
-
-                <Col>
-                  <label id="numbers">
-                    25
-                  </label>
-                </Col>
-              </Row>
-            </Col>
-          </Form.Group>
-        </Form>
       </div>
     </div>
     </div>
