@@ -86,6 +86,35 @@ function App() {
                     />
                   </MDBContainer>
                 </Row>
+                <Row>
+                    <label>
+                      Percent of Daily Values Reached Per Meal
+                    </label>
+                </Row>
+                <Row>
+                  <Col>
+                    <label>
+                      Number of Servings
+                    </label>
+                  </Col>
+                  <Col>
+                    <label>
+                      Number of Servings
+                    </label>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <label>
+                      25
+                    </label>
+                  </Col>
+                  <Col>
+                    <label>
+                      25
+                    </label>
+                  </Col>
+                </Row>
               </Col>
               <Col sm="1">
                   <Button variant="primary" type="submit">
