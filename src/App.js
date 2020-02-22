@@ -7,6 +7,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { HorizontalBar } from 'react-chartjs-2';
 import { MDBContainer } from 'mdbreact';
+import { Navbar, FormControl} from 'react-bootstrap';
 
 import ShoppingList from './Components/ShoppingList/ShoppingList';
 
@@ -44,25 +45,33 @@ function App() {
   };
   
   return (
+    <div id ="app">
     <div className="App">
       <div id = "form" style={{
                         textAlign:"center"
                       }}>
-        <label>
-          Healthy Student
-        </label>
+      <Navbar id="navBar">
+        <Navbar.Brand href="#home" id="healthyStudent">
+          HealthyStudent
+        </Navbar.Brand>
+        <div class=" ml-auto mr-1">
+          <Form inline id="form" >
+            <FormControl type="text" placeholder="Household Number" className="mr-sm-2" />
+            <Button variant="dark">Enter</Button>
+          </Form>
+        </div>
+      </Navbar>
+
         <Form>
           <Form.Group as={Row} controlId="formPlaintextHouseholdNumber">
-            <Col sm="2" md={{ offset: 1, span: 2 }} id ="groceryList">
+            <Col sm="2" md={{ span: 2 }} id ="groceryList">
               <Row>
                 <ShoppingList />
               </Row>
             </Col>
 
             <Col sm="10" md={{ span: 6}}>
-              <Row>
-                <Form.Control type="householdnumber" placeholder="HouseholdNumber" />
-              </Row>
+              <Row></Row>
               
               <Row>
                 <MDBContainer>
@@ -110,15 +119,10 @@ function App() {
                 </Col>
               </Row>
             </Col>
-
-            <Col sm="1">
-              <Button variant="primary" type="submit">
-                Submit
-              </Button>
-            </Col>
           </Form.Group>
         </Form>
       </div>
+    </div>
     </div>
   );
 }
