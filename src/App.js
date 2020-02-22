@@ -6,9 +6,10 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import FormLabel from 'react-bootstrap/FormLabel';
-import ListGroup from 'react-bootstrap/ListGroup';
 import { HorizontalBar } from 'react-chartjs-2';
 import { MDBContainer } from 'mdbreact';
+
+import ShoppingList from './Components/ShoppingList/ShoppingList';
 
 function App() {
   const state = {
@@ -50,27 +51,7 @@ function App() {
           <Form.Group as={Row} controlId="formPlaintextHouseholdNumber">
             <Col sm="2" md={{ offset: 1, span: 2 }} id ="groceryList">
               <Row>
-                <FormLabel>
-                  List
-                </FormLabel>
-              </Row>
-              <Row>
-                <ListGroup id = "list">
-                  <ListGroup.Item>This is bread</ListGroup.Item>
-                  <ListGroup.Item>Some soup</ListGroup.Item>
-                  <ListGroup.Item>Maybe a bagel?</ListGroup.Item>
-                  <ListGroup.Item>Probably some water</ListGroup.Item>
-                  <ListGroup.Item>Probably some water</ListGroup.Item>
-                  <ListGroup.Item>Probably some water</ListGroup.Item>
-                  <ListGroup.Item>Probably some water</ListGroup.Item>
-                  <ListGroup.Item>Probably some water</ListGroup.Item>
-                  <ListGroup.Item>Probably some water</ListGroup.Item>
-                  <ListGroup.Item>Probably some water</ListGroup.Item>
-                  <ListGroup.Item>Probably some water</ListGroup.Item>
-                  <ListGroup.Item>Probably some water</ListGroup.Item>
-                  <ListGroup.Item>Probably some water</ListGroup.Item>
-                  <ListGroup.Item>Probably some water</ListGroup.Item>
-                </ListGroup>
+                <ShoppingList />
               </Row>
             </Col>
               <Col sm="10" md={{ span: 4}}>
