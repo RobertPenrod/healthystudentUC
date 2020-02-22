@@ -42,13 +42,15 @@ class ShoppingList extends React.Component
     render()
     {
         const listStyle = {
-            flex: 3
+            overflowY: 'scroll',
+            height: '500px',
+            horizontal: 'lg'
         }
 
         return (
-            <div>
+            <>
                 <h2>Shopping List</h2>
-                <ListGroup style={{listStyle}}>
+                <ListGroup style={listStyle}>
                     <ListGroup.Item>Grocery Item...</ListGroup.Item>
                     <ListGroup.Item>Grocery Item...</ListGroup.Item>
                     <ListGroup.Item>Grocery Item...</ListGroup.Item>
@@ -70,7 +72,7 @@ class ShoppingList extends React.Component
                     <ListGroup.Item>Grocery Item...</ListGroup.Item>
                     <ListGroup.Item>Grocery Item...</ListGroup.Item>
                 </ListGroup>
-            </div>
+            </>
         )
     }
 }
