@@ -5,7 +5,6 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import FormLabel from 'react-bootstrap/FormLabel';
 import { HorizontalBar } from 'react-chartjs-2';
 import { MDBContainer } from 'mdbreact';
 
@@ -46,7 +45,12 @@ function App() {
   
   return (
     <div className="App">
-      <div id = "form">
+      <div id = "form" style={{
+                        textAlign:"center"
+                      }}>
+        <label>
+          Healthy Student
+        </label>
         <Form>
           <Form.Group as={Row} controlId="formPlaintextHouseholdNumber">
             <Col sm="2" md={{ offset: 1, span: 2 }} id ="groceryList">
@@ -55,14 +59,14 @@ function App() {
               </Row>
             </Col>
 
-            <Col sm="10" md={{ span: 4}}>
+            <Col sm="10" md={{ span: 6}}>
               <Row>
                 <Form.Control type="householdnumber" placeholder="HouseholdNumber" />
               </Row>
               
               <Row>
                 <MDBContainer>
-                  <h3 className='mt-5'>Bar chart</h3>
+                    <h3 id="chartTitle">Nutritional Information</h3>
                   <HorizontalBar
                     data={state.dataHorizontal}
                     options={{ responsive: true }}
@@ -71,20 +75,22 @@ function App() {
               </Row>
               
               <Row>
-                <label>
-                  Percent of Daily Values Reached Per Meal
-                </label>
+                <Col>
+                  <label id="xAxis">
+                    Percent of Daily Values
+                  </label>
+                </Col>
               </Row>
               
               <Row>
                 <Col>
-                  <label>
+                  <label id="numbersLabel">
                     Number of Servings
                   </label>
                 </Col>
 
                 <Col>
-                  <label>
+                  <label id="numbersLabel">
                     Number of Servings
                   </label>
                 </Col>
@@ -92,13 +98,13 @@ function App() {
 
               <Row>
                 <Col>
-                  <label>
+                  <label id="numbers">
                     25
                   </label>
                 </Col>
 
                 <Col>
-                  <label>
+                  <label id="numbers">
                     25
                   </label>
                 </Col>
