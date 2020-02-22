@@ -6,6 +6,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import ListGroup from 'react-bootstrap/ListGroup';
 
 function App() {
   return (
@@ -25,6 +26,22 @@ function App() {
               </Col>
           </Form.Group>
         </Form>
+      </div>
+
+      <div id = "body">
+        <Row>
+          <Col>
+            <ListGroup id = "list">
+              <ListGroup.Item>This is bread</ListGroup.Item>
+              <ListGroup.Item>Some soup</ListGroup.Item>
+              <ListGroup.Item>Maybe a bagel?</ListGroup.Item>
+              <ListGroup.Item>Probably some water</ListGroup.Item>
+            </ListGroup>
+          </Col>
+          <Col>
+            <p>Some other stuff will go here...</p>
+          </Col>
+        </Row>
       </div>
     </div>
   );
