@@ -46,21 +46,22 @@ class ShoppingList extends React.Component
 
         var comps = []
         var prices = []
-        var itemCount = 50
-        for(var i = 0; i < itemCount; i++) {
+        var total = 0
+        for(var i = 0; i < this.props.data.length; i++) {
+            console.log(this.props.data[i])
+            var price = parseFloat(this.props.data[i].week_sum)
+            total += price;
+            var s_price = price.toFixed(2);
             prices.push(i);
             comps.push(
             <ListGroup.Item style={listGroupItemStyle}>
-                <ListItemRow item={i} price={'$' + prices[i]} button={<Button index={i} onClick={this.handleClick}>Get Data</Button>} />
+                <ListItemRow item={this.props.data[i].week_num} price={'$' + s_price} button={<Button index={i} onClick={this.handleClick}>Get Data</Button>} />
             </ListGroup.Item>
             );
         }
 
         /* Get the total price and add listItemRow component containing it.*/
-        this.totalPrice = 0
-        for(var i = 0; i < itemCount; i++) {
-            this.totalPrice += prices[i]
-        }
+        this.totalPrice = total;
 
         return comps;
     }

@@ -113,21 +113,6 @@ class App extends React.Component {
   }
   
 render(){
-
-  var component;
-
-  if(this.state.loading) {
-    component = <p>loading</p>
-  }
-  else {
-    if(this.state.checked){
-      component = <LineChart data={this.state.weeks_sum} />
-    }
-    else {
-      component = <BarChart key={Math.random()} data={this.state.barData} labels={this.state.barLabels} redraw/>
-    }
-  }
-
   return (
     <div id="app">
       <div className="App">
@@ -156,7 +141,7 @@ render(){
           </Navbar>
           <Row>
             <Col id="groceryList">
-              <ShoppingList handler={this.handler}/>
+              {this.state.loading? <p>loading</p> : <ShoppingList data={this.state.weeks.weeks} handler={this.handler}/>}
             </Col>
 
             <Col>
