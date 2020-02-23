@@ -19,12 +19,11 @@ import Calculator from './Pages/Calculator/Calculator';
 function App() {
   return(
     <div className="App">
-      <BrowserRouter>
+      
         <Switch>
           <Route path="/" component={Home} exact />
           <Route path="/calculator" component={Calculator} exact />
         </Switch>
-      </BrowserRouter>
     </div>
   );
 }
