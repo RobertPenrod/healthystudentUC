@@ -124,7 +124,7 @@ render(){
       component = <LineChart data={this.state.weeks_sum} />
     }
     else {
-      component = <BarChart data={this.state.barData} labels={this.state.barLabels}/>
+      component = <BarChart key={Math.random()} data={this.state.barData} labels={this.state.barLabels} redraw/>
     }
   }
 

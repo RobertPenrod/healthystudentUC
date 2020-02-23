@@ -5,32 +5,19 @@ import { HorizontalBar } from 'react-chartjs-2';
 import { MDBContainer } from 'mdbreact';
 
 class ChartsPage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: this.props.data,
-      labels: this.props.labels
-    }
-  }
-
-  componentWillReceiveProps(nextProps){
-    if(nextProps.data!==this.props.data){
-      //Perform some operation
-      this.forceUpdate();
-    }
-  }
-
   componentDidUpdate() {
+    console.log(this.props.data)
     console.log("update");
+
   }
 
   render() {
     var d = {
-      labels: this.state.labels,
+      labels: this.props.labels,
       datasets: [
         {
           label: "My First Dataset",
-          data: this.state.data,
+          data: this.props.data,
           fill: false,
           backgroundColor: [
             "rgba(255, 99, 132, 0.2)",
@@ -55,9 +42,9 @@ class ChartsPage extends React.Component {
       ]
     }
     return (
-      <MDBContainer key={this.state.dataHorizontal}>
+      <MDBContainer>
         <h3>Bar chart</h3>
-        <HorizontalBar
+        <HorizontalBar key={Math.random()}
           data={d}
           options={{ responsive: true }}
         />
