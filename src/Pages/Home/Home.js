@@ -8,6 +8,8 @@ import Col from "react-bootstrap/Col";
 import { Navbar, FormControl, NavItem, Nav, NavLink } from "react-bootstrap";
 import Switch from "@material-ui/core/Switch";
 
+import Spinner from 'react-bootstrap/Spinner';
+
 
 import ShoppingList from "../../Components/ShoppingList/ShoppingList";
 import BarChart from "../../Components/Charts/BarChart";
@@ -27,7 +29,9 @@ class Home extends React.Component{
           barData: null,
           barLabels: null
         };
-    
+        
+        this.spinner = <Spinner animation="border" variant="primary" />
+
         this.getData(23);
       }
     
@@ -166,14 +170,7 @@ class Home extends React.Component{
                 </Navbar>
                 <Row>
                   <Col id="groceryList">
-                    {this.state.loading ? (
-                      <p>loading</p>
-                    ) : (
-                      <ShoppingList
-                        data={this.state.weeks.weeks}
-                        handler={this.handler}
-                      />
-                    )}
+                  {this.state.loading? this.spinner : <ShoppingList data={this.state.weeks.weeks} handler={this.handler}/>}
                   </Col>
     
                   <Col>
@@ -191,19 +188,7 @@ class Home extends React.Component{
                       <label>Line Chart</label>
                     </div>
                     <div id="chart">
-                      {this.state.loading ? (
-                        <p>loading</p>
-                      ) : this.state.checked ? (
-                        <LineChart
-                          data={this.state.weeks_sum}
-                          labels={this.state.labels}
-                        />
-                      ) : (
-                        <BarChart
-                          data={this.state.barData}
-                          labels={this.state.barLabels}
-                        />
-                      )}
+                         {this.state.loading ? this.spinner : this.state.checked ? <LineChart data={this.state.weeks_sum} labels={this.state.labels}/> : <BarChart data={this.state.barData} labels={this.state.barLabels}/>}
                     </div>
                     <Row>
                       <Col>
@@ -212,19 +197,19 @@ class Home extends React.Component{
                     </Row>
                     <Row>
                       <Col>
-                        <label id="numbersLabel">Number of Servings</label>
+                        <label id="numbersLabel">Number of Purchases</label>
                       </Col>
                       <Col>
-                        <label id="numbersLabel">Price/Meal</label>
+                        <label id="numbersLabel">Price/Item</label>
                       </Col>
                     </Row>
                     <Row>
                       <Col>
-                        <label id="numbers">25</label>
+                        <label id="numbers">{this.state.loading ? <p>loading</p> : this.state.weeks.weeks[this.state.selectedWeek].transactions.length}</label>
                       </Col>
     
                       <Col>
-                        <label id="numbers">25</label>
+                        <label id="numbers">{this.state.loading ? <p>loading</p> : '$'+(parseFloat(this.state.weeks.weeks[this.state.selectedWeek].week_sum)/this.state.weeks.weeks[this.state.selectedWeek].transactions.length).toFixed(2)}</label>
                       </Col>
                     </Row>
                   </Col>

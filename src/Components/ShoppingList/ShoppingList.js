@@ -9,6 +9,8 @@ import Col from "react-bootstrap/Col";
 
 import ListItemRow from "../ListItemRow/ListItemRow";
 
+import Spinner from 'react-bootstrap/Spinner';
+
 class ShoppingList extends React.Component {
   constructor() {
     super();
