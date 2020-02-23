@@ -16,7 +16,7 @@ class ChartsPage extends React.Component {
       labels: this.props.labels,
       datasets: [
         {
-          label: "My First Dataset",
+          label: "Department",
           data: this.props.data,
           fill: false,
           backgroundColor: [
@@ -43,7 +43,7 @@ class ChartsPage extends React.Component {
     }
     return (
       <MDBContainer>
-        <h3>Bar chart</h3>
+        <h3>Week Breakdown</h3>
         <HorizontalBar key={Math.random()}
           data={d}
           options={{ responsive: true }}
