@@ -3,12 +3,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ListGroup from 'react-bootstrap/ListGroup';
+import './ListItemRow.css';
 
 class ListItemRow extends React.Component{
-
-    handleClick = function(e) {
-        console.log(e.target.getAttribute("index"))
-    }
 
     render(){
         const fontStyle={
@@ -17,16 +14,13 @@ class ListItemRow extends React.Component{
         }
 
         return(
-            <div>
-                <Row>
-                    <Col>
-                        <p style={fontStyle}>{this.props.item}</p>
+            <div id='noPointerEvents'>
+                <Row id='noPointerEvents'>
+                    <Col id='noPointerEvents'>
+                        <p id='noPointerEvents' style={fontStyle}>{this.props.item}</p>
                     </Col>
-                    <Col>
-                        <p style={fontStyle}>{this.props.price}</p>
-                    </Col>
-                    <Col>
-                        {this.props.button}
+                    <Col id='noPointerEvents'>
+                        <p id='noPointerEvents' style={fontStyle}>{this.props.price}</p>
                     </Col>
                 </Row>
             </div>

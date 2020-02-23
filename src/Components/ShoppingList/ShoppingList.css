@@ -9,3 +9,28 @@ hr{
     background: black; 
     margin: 5px;
 }
+
+#button{
+    border-radius: 0;
+    border: none;
+    border-top: 1px solid #999999;
+    border-bottom: 1px solid #999999;
+    background: white;
+    color: black;
+    -moz-user-select: none;
+    user-select: none;
+    outline:none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+#button:hover{
+    background: whitesmoke;
+    outline:none;
+}
+
+#button:focus{
+    background: #385397;
+    outline: none !important;
+    box-shadow:none;
+    color: white;
+}

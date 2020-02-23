@@ -54,9 +54,9 @@ class ShoppingList extends React.Component
             var s_price = price.toFixed(2);
             prices.push(i);
             comps.push(
-            <ListGroup.Item style={listGroupItemStyle}>
-                <ListItemRow item={this.props.data[i].week_num} price={'$' + s_price} button={<Button index={i} onClick={this.handleClick}>Get Data</Button>} />
-            </ListGroup.Item>
+            <Button id='button' index={i} onClick={this.handleClick}>
+                <ListItemRow item={this.props.data[i].week_num} price={'$' + s_price} />
+            </Button>
             );
         }
 
