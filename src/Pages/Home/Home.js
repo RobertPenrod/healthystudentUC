@@ -82,7 +82,6 @@ class Home extends React.Component{
       };
     
       getData = householdNumber => {
-          alert("https://us-central1-healthystudent.cloudfunctions.net/HealthyStudents-GetData?id=" + householdNumber);
         fetch(
           "https://us-central1-healthystudent.cloudfunctions.net/HealthyStudents-GetData?id=" + householdNumber
         )
@@ -111,7 +110,6 @@ class Home extends React.Component{
       };
     
       submitForm = e => {
-        alert('Getting data for house: ' + this.state.formInput);
         this.getData(this.state.formInput);
       };
     
