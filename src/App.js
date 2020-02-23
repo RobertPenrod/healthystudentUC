@@ -12,6 +12,7 @@ import Switch from '@material-ui/core/Switch';
 import ShoppingList from './Components/ShoppingList/ShoppingList';
 import BarChart from './Components/Charts/BarChart';
 import LineChart from './Components/Charts/LineChart';
+import CostPrediction from './Components/CostPrediction/CostPrediction'
 
 import Nicketback from './Assets/look-at-this-graph.mp3';
 class App extends React.Component {
@@ -162,6 +163,7 @@ render(){
               </Row>
             </Col>
           </Row>
+          <CostPrediction/>
         </div>
       </div>
     </div>
