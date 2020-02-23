@@ -2,3 +2,10 @@
     font-weight: bold;
     font-size: 20pt;
 }
+
+hr{
+    border: none; 
+    height: 2px; 
+    background: black; 
+    margin: 5px;
+}
