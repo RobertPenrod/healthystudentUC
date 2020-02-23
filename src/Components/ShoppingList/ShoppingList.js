@@ -62,7 +62,7 @@ class ShoppingList extends React.Component
 
         /* Get the total price and add listItemRow component containing it.*/
         this.totalPrice = total;
-
+        this.average = total/this.props.data.length;
         return comps;
     }
 
@@ -91,6 +91,7 @@ class ShoppingList extends React.Component
                     </ListGroup>
                     <hr/>
                     <ListItemRow isBold={true} item='Total:' price={'$' + this.totalPrice}/>
+                    <ListItemRow isBold={true} item='Cost/Week: ' price={'$' + (this.average.toFixed(2))} />
                 </Col>
                 <p></p>
             </div>

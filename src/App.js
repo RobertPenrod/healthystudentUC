@@ -172,19 +172,19 @@ render(){
               </Row>
               <Row>
                 <Col>
-                  <label id="numbersLabel">Number of Servings</label>
+                  <label id="numbersLabel">Number of Purchases</label>
                 </Col>
                 <Col>
-                  <label id="numbersLabel">Price/Meal</label>
+                  <label id="numbersLabel">Price/Item</label>
                 </Col>
               </Row>
               <Row>
                 <Col>
-                  <label id="numbers">25</label>
+                  <label id="numbers">{this.state.loading ? <p>loading</p> : this.state.weeks.weeks[this.state.selectedWeek].transactions.length}</label>
                 </Col>
 
                 <Col>
-                  <label id="numbers">25</label>
+                  <label id="numbers">{this.state.loading ? <p>loading</p> : '$'+(parseFloat(this.state.weeks.weeks[this.state.selectedWeek].week_sum)/this.state.weeks.weeks[this.state.selectedWeek].transactions.length).toFixed(2)}</label>
                 </Col>
               </Row>
             </Col>
