@@ -1,15 +1,14 @@
-import React from 'react';
-import './LineChart.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Line } from 'react-chartjs-2';
-import { MDBContainer } from 'mdbreact';
+import React from "react";
+import "./LineChart.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Line } from "react-chartjs-2";
+import { MDBContainer } from "mdbreact";
 
 class LineChart extends React.Component {
-
-  constructor(props){
+  constructor(props) {
     super(props);
-    let _this = this
-    console.log(this.props.data)
+    let _this = this;
+    console.log(this.props.data);
     this.state = {
       weeks: null,
       dataLine: {
@@ -40,46 +39,46 @@ class LineChart extends React.Component {
       }
     };
   }
-    
 
-    getData = (householdNumber) => {
-      fetch('https://us-central1-healthystudent.cloudfunctions.net/HealthyStudents-GetData?id=' + householdNumber)
-          .then(res => res.json())
-          .then(
-              (result) => {
-                  this.setState({weeks:result});
-                  
-                  /*
+  getData = householdNumber => {
+    fetch(
+      "https://us-central1-healthystudent.cloudfunctions.net/HealthyStudents-GetData?id=" +
+        householdNumber
+    )
+      .then(res => res.json())
+      .then(result => {
+        this.setState({ weeks: result });
+
+        /*
                   this.state.weeks.weeks.forEach((item) => {
                       console.log(item.week_num, item.week_sum, item.transactions);
                       this.state.labels.append()
                   })
                   */
-                  var labs = [];
-                  var week_sums = [];
-                  for(var i=0; i < this.state.weeks.weeks.length; i++) {
-                    console.log(this.state.weeks.weeks[i])
-                    //this.state.dataLine.labels.append("Week " + i);
-                    labs.push(this.state.weeks.weeks[i].week_num);
-                    week_sums.push(this.state.weeks.weeks[i].week_sum);
-                  }
-                  console.log(week_sums)
-                  this.setState({dataLine: {labels:labs}});
-                  this.setState({dataLine:{datasets:{data:week_sums}}})
-                    
-                  console.log(this.state.dataLine);
-              }
-          )
-    }
-  
-    render() {
-      return (
-        <MDBContainer>
-          <h3>Line chart</h3>
-          <Line data={this.state.dataLine} options={{ responsive: true }} />
-        </MDBContainer>
-      );
-    }
+        var labs = [];
+        var week_sums = [];
+        for (var i = 0; i < this.state.weeks.weeks.length; i++) {
+          console.log(this.state.weeks.weeks[i]);
+          //this.state.dataLine.labels.append("Week " + i);
+          labs.push(this.state.weeks.weeks[i].week_num);
+          week_sums.push(this.state.weeks.weeks[i].week_sum);
+        }
+        console.log(week_sums);
+        this.setState({ dataLine: { labels: labs } });
+        this.setState({ dataLine: { datasets: { data: week_sums } } });
+
+        console.log(this.state.dataLine);
+      });
+  };
+
+  render() {
+    return (
+      <MDBContainer>
+        <h3>Line chart</h3>
+        <Line data={this.state.dataLine} options={{ responsive: true }} />
+      </MDBContainer>
+    );
   }
-  
-  export default LineChart;
+}
+
+export default LineChart;

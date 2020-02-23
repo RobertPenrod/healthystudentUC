@@ -1,14 +1,13 @@
-import React from 'react';
-import './BarChart.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { HorizontalBar } from 'react-chartjs-2';
-import { MDBContainer } from 'mdbreact';
+import React from "react";
+import "./BarChart.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { HorizontalBar } from "react-chartjs-2";
+import { MDBContainer } from "mdbreact";
 
 class ChartsPage extends React.Component {
   componentDidUpdate() {
-    console.log(this.props.data)
+    console.log(this.props.data);
     console.log("update");
-
   }
 
   render() {
@@ -88,16 +87,16 @@ class ChartsPage extends React.Component {
           borderWidth: 1
         }
       ]
-    }
+    };
     return (
       <MDBContainer>
         <h3>Week Breakdown</h3>
-        <HorizontalBar key={Math.random()}
+        <HorizontalBar
+          key={Math.random()}
           data={d}
           options={{ responsive: true }}
         />
       </MDBContainer>
-      
     );
   }
 }

@@ -1,37 +1,34 @@
-import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import ListGroup from 'react-bootstrap/ListGroup';
+import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import ListGroup from "react-bootstrap/ListGroup";
 
-class ListItemRow extends React.Component{
+class ListItemRow extends React.Component {
+  handleClick = function(e) {
+    console.log(e.target.getAttribute("index"));
+  };
 
-    handleClick = function(e) {
-        console.log(e.target.getAttribute("index"))
-    }
+  render() {
+    const fontStyle = {
+      fontWeight: this.props.isBold ? "bolder" : "normal",
+      fontSize: this.props.isBold ? "20px" : "16px"
+    };
 
-    render(){
-        const fontStyle={
-            fontWeight: this.props.isBold? 'bolder' : 'normal',
-            fontSize: this.props.isBold? '20px' : '16px'
-        }
-
-        return(
-            <div>
-                <Row>
-                    <Col>
-                        <p style={fontStyle}>{this.props.item}</p>
-                    </Col>
-                    <Col>
-                        <p style={fontStyle}>{this.props.price}</p>
-                    </Col>
-                    <Col>
-                        {this.props.button}
-                    </Col>
-                </Row>
-            </div>
-        )
-    }
+    return (
+      <div>
+        <Row>
+          <Col>
+            <p style={fontStyle}>{this.props.item}</p>
+          </Col>
+          <Col>
+            <p style={fontStyle}>{this.props.price}</p>
+          </Col>
+          <Col>{this.props.button}</Col>
+        </Row>
+      </div>
+    );
+  }
 }
 
-export default ListItemRow
+export default ListItemRow;
