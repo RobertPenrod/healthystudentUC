@@ -82,9 +82,9 @@ class ShoppingList extends React.Component
         return (
             <div>
                 <Col>
-                    <label id="title">Shopping List</label>
+                    <label id="title">Weekly Overview</label>
                     <hr/>
-                    <ListItemRow isBold={true} item='Item' price='Price'/>
+                    <ListItemRow isBold={true} item='Week' price='Expenses'/>
                     <ListGroup variant='flush' style={listStyle}>
                         {this.generateList()}
                     </ListGroup>
