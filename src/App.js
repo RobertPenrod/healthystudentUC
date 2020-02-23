@@ -65,7 +65,7 @@ render(){
 
             <Col>
               <label>
-                Line Chart
+                Bar Chart
               </label>
               <Switch
                 checked={this.state.checked}
@@ -75,7 +75,7 @@ render(){
                 inputProps={{ 'aria-label': 'secondary checkbox' }}
               />
               <label>
-                Bar Chart
+                Line Chart
               </label>
               {this.state.checked ? <LineChart /> : <BarChart />}
               <Row>

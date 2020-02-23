@@ -10,14 +10,25 @@ import ListItemRow from '../ListItemRow/ListItemRow';
 
 class ShoppingList extends React.Component
 {
+    constructor(){
+        super();
+        this.state = {
+            weeks: null
+        }
+        this.getData()
+    }
     totalPrice
 
-    getData = () => {
-        fetch('https://us-central1-healthystudent.cloudfunctions.net/HealthyStudents-GetData')
+    getData = (householdNumber) => {
+        fetch('https://us-central1-healthystudent.cloudfunctions.net/HealthyStudents-GetData?id=' + householdNumber)
             .then(res => res.json())
             .then(
                 (result) => {
-                    console.log(result)
+                    this.setState({weeks:result});
+                    console.log(this.state.weeks);
+                    this.state.weeks.weeks.forEach((item) => {
+                        console.log(item.week_num, item.week_sum, item.transactions);
+                    })
                 }
             )
     }
@@ -51,8 +62,6 @@ class ShoppingList extends React.Component
     }
     render()
     {
-        this.getData()
-
         const listStyle = {
             overflowY: 'scroll',
             overflowX: 'hidden',
