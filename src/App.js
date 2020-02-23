@@ -5,14 +5,17 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { Navbar, FormControl, NavItem, Nav } from "react-bootstrap";
+import { Navbar, FormControl } from "react-bootstrap";
+import { FormControlLabel } from "@material-ui/core";
 import Switch from "@material-ui/core/Switch";
 
 import ShoppingList from "./Components/ShoppingList/ShoppingList";
 import BarChart from "./Components/Charts/BarChart";
 import LineChart from "./Components/Charts/LineChart";
-import Nicketback from "./Assets/look-at-this-graph.mp3";
+import CostPrediction from "./Components/CostPrediction/CostPrediction";
+import Spinner from "react-bootstrap/Spinner";
 
+import Nicketback from "./Assets/look-at-this-graph.mp3";
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -26,8 +29,13 @@ class App extends React.Component {
       barData: null,
       barLabels: null
     };
-
-    this.getData(23);
+    this.spinner = <Spinner animation="border" variant="primary" />;
+    this.initReq = true;
+    //this.getData(23)
+    if (this.initReq) {
+      this.getData(23);
+      this.initReq = false;
+    }
   }
 
   toggleChecked = () => {
@@ -75,6 +83,7 @@ class App extends React.Component {
   };
 
   getData = householdNumber => {
+    this.setState({ loading: true });
     fetch(
       "https://us-central1-healthystudent.cloudfunctions.net/HealthyStudents-GetData?id=" +
         householdNumber
@@ -104,6 +113,7 @@ class App extends React.Component {
   };
 
   submitForm = e => {
+    console.log("submit");
     this.getData(this.state.formInput);
   };
 
@@ -125,35 +135,8 @@ class App extends React.Component {
               <Navbar.Brand href="#home" id="SiteName">
                 Super-Marka-Metrics
               </Navbar.Brand>
-
-              <div class=" ml-auto mr-1" id="form">
-                <Form inline onSubmit={this.submitForm}>
-                  <div class=" ml-auto">
-                    <Nav id="tab" variant="tabs" defaultActiveKey="/home">
-                      <Nav.Link
-                        style={{
-                          fontWeight: "bolder",
-                          alignText: "right"
-                        }}
-                        href="/app"
-                      >
-                        Home
-                      </Nav.Link>
-                    </Nav>
-                  </div>
-                  <div style={{ marginLeft: "5px", marginRight: "10px" }}>
-                    <Nav id="tab" variant="tabs" defaultActiveKey="/calc">
-                      <Nav.Link
-                        style={{
-                          fontWeight: "bolder",
-                          alignText: "right"
-                        }}
-                        href="/calc"
-                      >
-                        Calculator
-                      </Nav.Link>
-                    </Nav>
-                  </div>
+              <div class=" ml-auto mr-1">
+                <Form inline id="form" onSubmit={this.submitForm}>
                   <FormControl
                     onChange={this.formChange}
                     type="text"
@@ -161,7 +144,7 @@ class App extends React.Component {
                     className="mr-sm-2"
                     name="formInput"
                   />
-                  <Button type="submit" variant="dark">
+                  <Button onClick={this.submitForm} variant="dark">
                     Enter
                   </Button>
                 </Form>
@@ -170,7 +153,7 @@ class App extends React.Component {
             <Row>
               <Col id="groceryList">
                 {this.state.loading ? (
-                  <p>loading</p>
+                  this.spinner
                 ) : (
                   <ShoppingList
                     data={this.state.weeks.weeks}
@@ -195,7 +178,7 @@ class App extends React.Component {
                 </div>
                 <div id="chart">
                   {this.state.loading ? (
-                    <p>loading</p>
+                    this.spinner
                   ) : this.state.checked ? (
                     <LineChart
                       data={this.state.weeks_sum}
@@ -215,23 +198,41 @@ class App extends React.Component {
                 </Row>
                 <Row>
                   <Col>
-                    <label id="numbersLabel">Number of Servings</label>
+                    <label id="numbersLabel">Number of Purchases</label>
                   </Col>
                   <Col>
-                    <label id="numbersLabel">Price/Meal</label>
+                    <label id="numbersLabel">Price/Item</label>
                   </Col>
                 </Row>
                 <Row>
                   <Col>
-                    <label id="numbers">25</label>
+                    <label id="numbers">
+                      {this.state.loading
+                        ? this.spinner
+                        : this.state.weeks.weeks[this.state.selectedWeek]
+                            .transactions.length}
+                    </label>
                   </Col>
 
                   <Col>
-                    <label id="numbers">25</label>
+                    <label id="numbers">
+                      {this.state.loading
+                        ? this.spinner
+                        : "$" +
+                          (
+                            parseFloat(
+                              this.state.weeks.weeks[this.state.selectedWeek]
+                                .week_sum
+                            ) /
+                            this.state.weeks.weeks[this.state.selectedWeek]
+                              .transactions.length
+                          ).toFixed(2)}
+                    </label>
                   </Col>
                 </Row>
               </Col>
             </Row>
+            <CostPrediction />
           </div>
         </div>
       </div>

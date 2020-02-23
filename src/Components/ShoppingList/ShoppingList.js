@@ -53,23 +53,18 @@ class ShoppingList extends React.Component {
       var s_price = price.toFixed(2);
       prices.push(i);
       comps.push(
-        <ListGroup.Item style={listGroupItemStyle}>
+        <Button id="button" index={i} onClick={this.handleClick}>
           <ListItemRow
             item={this.props.data[i].week_num}
             price={"$" + s_price}
-            button={
-              <Button index={i} onClick={this.handleClick}>
-                Get Data
-              </Button>
-            }
           />
-        </ListGroup.Item>
+        </Button>
       );
     }
 
     /* Get the total price and add listItemRow component containing it.*/
     this.totalPrice = total;
-
+    this.average = total / this.props.data.length;
     return comps;
   };
 
@@ -100,6 +95,11 @@ class ShoppingList extends React.Component {
             isBold={true}
             item="Total:"
             price={"$" + this.totalPrice}
+          />
+          <ListItemRow
+            isBold={true}
+            item="Cost/Week: "
+            price={"$" + this.average.toFixed(2)}
           />
         </Col>
         <p></p>
