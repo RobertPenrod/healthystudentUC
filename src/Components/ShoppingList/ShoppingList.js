@@ -65,7 +65,7 @@ class ShoppingList extends React.Component
         const listStyle = {
             overflowY: 'scroll',
             overflowX: 'hidden',
-            height: '500px',
+            height: '400px',
             horizontal: 'lg'
         }
 

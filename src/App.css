@@ -28,6 +28,7 @@
 }
 #app{
     background-color: whitesmoke;
+    overflow-x: hidden;
 }
 #groceryList{
     margin-left: 3%;
