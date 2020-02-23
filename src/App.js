@@ -15,14 +15,15 @@ import LineChart from './Components/Charts/LineChart';
 
 import Nicketback from './Assets/look-at-this-graph.mp3';
 class App extends React.Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state = {
       checked:false,
       weeks: null,
       weeks_sum: null,
-      labels: "test"
-    }
+      labels: "test",
+      formInput: 'test'
+    };
 
     this.getData(23)
   }
@@ -75,6 +76,14 @@ class App extends React.Component {
             }
         )
   }
+
+  submitForm = (e) => {
+    this.getData(this.state.formInput)
+  }
+
+  formChange = (e) => {
+    this.setState({formInput: e.target.value})
+  }
   
 render(){
   return (
@@ -88,16 +97,18 @@ render(){
         >
           <Navbar id="navBar">
             <Navbar.Brand href="#home" id="SiteName">
-              Supa-Marka-Metrics
+              Super-Marka-Metrics
             </Navbar.Brand>
             <div class=" ml-auto mr-1">
-              <Form inline id="form">
-                <FormControl
+              <Form inline id="form" onSubmit = {this.submitForm}>
+                <FormControl onChange={this.formChange}
                   type="text"
                   placeholder="Household Number"
                   className="mr-sm-2"
+                  name='formInput'
+                  
                 />
-                <Button variant="dark">Enter</Button>
+                <Button type='submit' variant="dark">Enter</Button>
               </Form>
             </div>
           </Navbar>
