@@ -12,6 +12,7 @@ import Switch from '@material-ui/core/Switch';
 import ShoppingList from './Components/ShoppingList/ShoppingList';
 import BarChart from './Components/Charts/BarChart';
 import LineChart from './Components/Charts/LineChart';
+import Spinner from 'react-bootstrap/Spinner'
 
 import Nicketback from './Assets/look-at-this-graph.mp3';
 class App extends React.Component {
@@ -27,7 +28,7 @@ class App extends React.Component {
       barData: null,
       barLabels: null
     }
-
+    this.spinner = <Spinner animation="border" variant="primary" />
     this.getData(23)
   }
 
@@ -141,7 +142,7 @@ render(){
           </Navbar>
           <Row>
             <Col id="groceryList">
-              {this.state.loading? <p>loading</p> : <ShoppingList data={this.state.weeks.weeks} handler={this.handler}/>}
+              {this.state.loading? this.spinner : <ShoppingList data={this.state.weeks.weeks} handler={this.handler}/>}
             </Col>
 
             <Col>
@@ -163,7 +164,7 @@ render(){
                 </label>
               </div>
               <div id ="chart">
-                {this.state.loading ? <p>loading</p> : this.state.checked ? <LineChart data={this.state.weeks_sum} labels={this.state.labels}/> : <BarChart data={this.state.barData} labels={this.state.barLabels}/>}
+                {this.state.loading ? this.spinner : this.state.checked ? <LineChart data={this.state.weeks_sum} labels={this.state.labels}/> : <BarChart data={this.state.barData} labels={this.state.barLabels}/>}
               </div>
               <Row>
                 <Col>
@@ -180,11 +181,11 @@ render(){
               </Row>
               <Row>
                 <Col>
-                  <label id="numbers">{this.state.loading ? <p>loading</p> : this.state.weeks.weeks[this.state.selectedWeek].transactions.length}</label>
+                  <label id="numbers">{this.state.loading ? this.spinner : this.state.weeks.weeks[this.state.selectedWeek].transactions.length}</label>
                 </Col>
 
                 <Col>
-                  <label id="numbers">{this.state.loading ? <p>loading</p> : '$'+(parseFloat(this.state.weeks.weeks[this.state.selectedWeek].week_sum)/this.state.weeks.weeks[this.state.selectedWeek].transactions.length).toFixed(2)}</label>
+                  <label id="numbers">{this.state.loading ? this.spinner : '$'+(parseFloat(this.state.weeks.weeks[this.state.selectedWeek].week_sum)/this.state.weeks.weeks[this.state.selectedWeek].transactions.length).toFixed(2)}</label>
                 </Col>
               </Row>
             </Col>
