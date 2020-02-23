@@ -17,8 +17,7 @@ class ShoppingList extends React.Component
         }
         this.getData()
     }
-    totalPrice
-
+    
     getData = (householdNumber) => {
         fetch('https://us-central1-healthystudent.cloudfunctions.net/HealthyStudents-GetData?id=' + householdNumber)
             .then(res => res.json())
@@ -32,6 +31,8 @@ class ShoppingList extends React.Component
                 }
             )
     }
+
+    totalPrice
 
     generateList = () => {
 

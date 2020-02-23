@@ -17,8 +17,13 @@ class App extends React.Component {
   constructor(){
     super();
     this.state = {
-      checked:false
+      checked:false,
+      weeks: null,
+      weeks_sum: null,
+      labels: "test"
     }
+
+    this.getData(23)
   }
 
   toggleChecked = () => {
@@ -32,6 +37,41 @@ class App extends React.Component {
       }
       return <BarChart />;
   }
+
+  getTopDeparts = () => {
+    var vals = this.state.weeks.weeks;
+    console.log(vals);
+  }
+
+  getData = (householdNumber) => {
+    fetch('https://us-central1-healthystudent.cloudfunctions.net/HealthyStudents-GetData?id=' + householdNumber)
+        .then(res => res.json())
+        .then(
+            (result) => {
+                this.setState({weeks:result});
+                
+                /*
+                this.state.weeks.weeks.forEach((item) => {
+                    console.log(item.week_num, item.week_sum, item.transactions);
+                    this.state.labels.append()
+                })
+                */
+                var labs = [];
+                var x = [];
+                for(var i=0; i < this.state.weeks.weeks.length; i++) {
+                  console.log(this.state.weeks.weeks[i])
+                  //this.state.dataLine.labels.append("Week " + i);
+                  labs.push(this.state.weeks.weeks[i].week_num);
+                  x.push(this.state.weeks.weeks[i].week_sum);
+                }
+                //console.log(week_sums)
+                this.setState({labels: labs})
+                this.setState({weeks_sum:x})
+                  
+                console.log(this.state.weeks_sum);
+            }
+        )
+  }
   
 render(){
   return (
@@ -44,8 +84,8 @@ render(){
           }}
         >
           <Navbar id="navBar">
-            <Navbar.Brand href="#home" id="healthyStudent">
-              HealthyStudent
+            <Navbar.Brand href="#home" id="SiteName">
+              Supa-Marka-Metrics
             </Navbar.Brand>
             <div class=" ml-auto mr-1">
               <Form inline id="form">
@@ -82,7 +122,7 @@ render(){
                 </label>
               </div>
               <div id ="chart">
-                {this.state.checked ? <LineChart /> : <BarChart />}
+                {this.state.checked ? <LineChart data={this.state.weeks_sum} label={this.state.labels}/> : <BarChart />}
               </div>
               <Row>
                 <Col>
