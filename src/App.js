@@ -5,15 +5,14 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { Navbar, FormControl } from "react-bootstrap";
-import { FormControlLabel } from "@material-ui/core";
+import { Navbar, FormControl, NavItem, Nav } from "react-bootstrap";
 import Switch from "@material-ui/core/Switch";
 
 import ShoppingList from "./Components/ShoppingList/ShoppingList";
 import BarChart from "./Components/Charts/BarChart";
 import LineChart from "./Components/Charts/LineChart";
-
 import Nicketback from "./Assets/look-at-this-graph.mp3";
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -126,8 +125,35 @@ class App extends React.Component {
               <Navbar.Brand href="#home" id="SiteName">
                 Super-Marka-Metrics
               </Navbar.Brand>
-              <div class=" ml-auto mr-1">
-                <Form inline id="form" onSubmit={this.submitForm}>
+
+              <div class=" ml-auto mr-1" id="form">
+                <Form inline onSubmit={this.submitForm}>
+                  <div class=" ml-auto">
+                    <Nav id="tab" variant="tabs" defaultActiveKey="/home">
+                      <Nav.Link
+                        style={{
+                          fontWeight: "bolder",
+                          alignText: "right"
+                        }}
+                        href="/app"
+                      >
+                        Home
+                      </Nav.Link>
+                    </Nav>
+                  </div>
+                  <div style={{ marginLeft: "5px", marginRight: "10px" }}>
+                    <Nav id="tab" variant="tabs" defaultActiveKey="/calc">
+                      <Nav.Link
+                        style={{
+                          fontWeight: "bolder",
+                          alignText: "right"
+                        }}
+                        href="/calc"
+                      >
+                        Calculator
+                      </Nav.Link>
+                    </Nav>
+                  </div>
                   <FormControl
                     onChange={this.formChange}
                     type="text"
