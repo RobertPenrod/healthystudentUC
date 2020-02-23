@@ -64,20 +64,26 @@ render(){
             </Col>
 
             <Col>
-              <label>
-                Bar Chart
-              </label>
-              <Switch
-                checked={this.state.checked}
-                onChange={this.toggleChecked}
-                value="checked"
-                trackColor={{true: 'primary', false: 'secondary'}}
-                inputProps={{ 'aria-label': 'secondary checkbox' }}
-              />
-              <label>
-                Line Chart
-              </label>
-              {this.state.checked ? <LineChart /> : <BarChart />}
+              <div id="switch">
+                <label>
+                  Bar Chart
+                </label>
+              
+                <Switch
+                  checked={this.state.checked}
+                  onChange={this.toggleChecked}
+                  value="checked"
+                  trackColor={{true: 'primary', false: 'secondary'}}
+                  inputProps={{ 'aria-label': 'secondary checkbox' }}
+                />
+              
+                <label>
+                  Line Chart
+                </label>
+              </div>
+              <div id ="chart">
+                {this.state.checked ? <LineChart /> : <BarChart />}
+              </div>
               <Row>
                 <Col>
                   <label id="xAxis">Percent of Daily Values</label>
@@ -88,7 +94,7 @@ render(){
                   <label id="numbersLabel">Number of Servings</label>
                 </Col>
                 <Col>
-                  <label id="numbersLabel">Number of Servings</label>
+                  <label id="numbersLabel">Price/Meal</label>
                 </Col>
               </Row>
               <Row>

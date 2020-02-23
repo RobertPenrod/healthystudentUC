@@ -40,12 +40,13 @@ class ChartsPage extends React.Component {
   render() {
     return (
       <MDBContainer>
-        <h3 className="mt-5">Bar chart</h3>
+        <h3>Bar chart</h3>
         <HorizontalBar
           data={this.state.dataHorizontal}
           options={{ responsive: true }}
         />
       </MDBContainer>
+      
     );
   }
 }
