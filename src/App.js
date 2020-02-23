@@ -13,6 +13,7 @@ import ShoppingList from './Components/ShoppingList/ShoppingList';
 import BarChart from './Components/Charts/BarChart';
 import LineChart from './Components/Charts/LineChart';
 
+import Nicketback from './Assets/look-at-this-graph.mp3';
 class App extends React.Component {
   constructor(){
     super();
@@ -27,6 +28,8 @@ class App extends React.Component {
   }
 
   toggleChecked = () => {
+    var s = new Audio(Nicketback)
+    s.play()
     this.setState({checked: !this.state.checked})
   };
 
