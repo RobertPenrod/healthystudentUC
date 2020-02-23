@@ -29,10 +29,12 @@ class Home extends React.Component{
           barData: null,
           barLabels: null
         };
-        
+        this.initCall = true
         this.spinner = <Spinner animation="border" variant="primary" />
-
-        this.getData(23);
+        if(this.initCall){
+            this.getData(23);
+            this.initCall = false
+        }
       }
     
       toggleChecked = () => {
@@ -80,9 +82,9 @@ class Home extends React.Component{
       };
     
       getData = householdNumber => {
+          alert("https://us-central1-healthystudent.cloudfunctions.net/HealthyStudents-GetData?id=" + householdNumber);
         fetch(
-          "https://us-central1-healthystudent.cloudfunctions.net/HealthyStudents-GetData?id=" +
-            householdNumber
+          "https://us-central1-healthystudent.cloudfunctions.net/HealthyStudents-GetData?id=" + householdNumber
         )
           .then(res => res.json())
           .then(result => {
@@ -109,6 +111,7 @@ class Home extends React.Component{
       };
     
       submitForm = e => {
+        alert('Getting data for house: ' + this.state.formInput);
         this.getData(this.state.formInput);
       };
     
@@ -132,7 +135,7 @@ class Home extends React.Component{
                   </Navbar.Brand>
     
                   <div class=" ml-auto mr-1" id="form">
-                    <Form inline onSubmit={this.submitForm}>
+                    <Form inline>
                       <div class=" ml-auto">
                         <Nav id="tab" variant="tabs" defaultActiveKey="/home">
                           <Nav.Link id='navText'
@@ -162,7 +165,7 @@ class Home extends React.Component{
                         className="mr-sm-2"
                         name="formInput"
                       />
-                      <Button type="submit" variant="dark">
+                      <Button onClick={this.submitForm} variant="dark">
                         Enter
                       </Button>
                     </Form>
@@ -205,11 +208,11 @@ class Home extends React.Component{
                     </Row>
                     <Row>
                       <Col>
-                        <label id="numbers">{this.state.loading ? <p>loading</p> : this.state.weeks.weeks[this.state.selectedWeek].transactions.length}</label>
+                        <label id="numbers">{this.state.loading ? this.spinner : this.state.weeks.weeks[this.state.selectedWeek].transactions.length}</label>
                       </Col>
     
                       <Col>
-                        <label id="numbers">{this.state.loading ? <p>loading</p> : '$'+(parseFloat(this.state.weeks.weeks[this.state.selectedWeek].week_sum)/this.state.weeks.weeks[this.state.selectedWeek].transactions.length).toFixed(2)}</label>
+                        <label id="numbers">{this.state.loading ? this.spinner : '$'+(parseFloat(this.state.weeks.weeks[this.state.selectedWeek].week_sum)/this.state.weeks.weeks[this.state.selectedWeek].transactions.length).toFixed(2)}</label>
                       </Col>
                     </Row>
                   </Col>
