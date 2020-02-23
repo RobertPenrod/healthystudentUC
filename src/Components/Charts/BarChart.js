@@ -5,13 +5,32 @@ import { HorizontalBar } from 'react-chartjs-2';
 import { MDBContainer } from 'mdbreact';
 
 class ChartsPage extends React.Component {
-  state = {
-    dataHorizontal: {
-      labels: ["Red", "Orange", "Yellow", "Green", "Blue", "Purple", "Grey"],
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: this.props.data,
+      labels: this.props.labels
+    }
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.data!==this.props.data){
+      //Perform some operation
+      this.forceUpdate();
+    }
+  }
+
+  componentDidUpdate() {
+    console.log("update");
+  }
+
+  render() {
+    var d = {
+      labels: this.state.labels,
       datasets: [
         {
           label: "My First Dataset",
-          data: [22, 33, 55, 12, 86, 23, 14],
+          data: this.state.data,
           fill: false,
           backgroundColor: [
             "rgba(255, 99, 132, 0.2)",
@@ -35,14 +54,11 @@ class ChartsPage extends React.Component {
         }
       ]
     }
-  };
-
-  render() {
     return (
-      <MDBContainer>
+      <MDBContainer key={this.state.dataHorizontal}>
         <h3>Bar chart</h3>
         <HorizontalBar
-          data={this.state.dataHorizontal}
+          data={d}
           options={{ responsive: true }}
         />
       </MDBContainer>

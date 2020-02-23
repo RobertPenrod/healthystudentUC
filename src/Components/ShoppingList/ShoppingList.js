@@ -2,6 +2,7 @@ import React from 'react';
 import './ShoppingList.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ListGroup from 'react-bootstrap/ListGroup';
+import { Button } from 'react-bootstrap';
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -15,7 +16,8 @@ class ShoppingList extends React.Component
         this.state = {
             weeks: null
         }
-        this.getData()
+        this.handleClick = this.handleClick.bind(this);
+        //this.getData()
     }
     
     getData = (householdNumber) => {
@@ -38,7 +40,8 @@ class ShoppingList extends React.Component
 
         const listGroupItemStyle = {
             borderTop: '2px solid #D3D3D3',
-            borderBottom: '2px solid #D3D3D3'
+            borderBottom: '2px solid #D3D3D3',
+            zIndex: 1
         }
 
         var comps = []
@@ -48,7 +51,7 @@ class ShoppingList extends React.Component
             prices.push(i);
             comps.push(
             <ListGroup.Item style={listGroupItemStyle}>
-                <ListItemRow item={i} price={'$' + prices[i]}/>
+                <ListItemRow item={i} price={'$' + prices[i]} button={<Button index={i} onClick={this.handleClick}>Get Data</Button>} />
             </ListGroup.Item>
             );
         }
@@ -61,6 +64,12 @@ class ShoppingList extends React.Component
 
         return comps;
     }
+
+    handleClick = function(e) {
+        var i = e.target.getAttribute("index")
+        this.props.handler(i);
+    }
+
     render()
     {
         const listStyle = {

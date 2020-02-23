@@ -21,9 +21,12 @@ class App extends React.Component {
       checked:false,
       weeks: null,
       weeks_sum: null,
-      labels: "test",
-      formInput: 'test'
-    };
+      labels: null,
+      selectedWeek: 0,
+      loading: true,
+      barData: null,
+      barLabels: null
+    }
 
     this.getData(23)
   }
@@ -35,16 +38,42 @@ class App extends React.Component {
   };
 
   Checking() {
-      console.log("checking")
       if (this.state.checked) {
         return <LineChart />;
       }
       return <BarChart />;
   }
 
+  handler = (val) => {
+    console.log(val);
+    this.setState({selectedWeek: val});
+    this.getTopDeparts();
+  }
+
   getTopDeparts = () => {
-    var vals = this.state.weeks.weeks;
-    console.log(vals);
+    var week_data = this.state.weeks.weeks[this.state.selectedWeek];
+    console.log(week_data)
+    var dict = {}
+    week_data.transactions.forEach((t) => {
+      if(t.commodity in dict) {
+        dict[t.commodity] += parseFloat(t.cost);
+      }
+      else {
+        dict[t.commodity] = parseFloat(t.cost);
+      }
+    });
+
+    var labs = []
+    var vals = []
+
+    for (var k in dict) {
+      var v = dict[k]
+      labs.push(k);
+      vals.push(v);
+    }
+
+    this.setState({barData: vals, barLabels:labs});
+    this.setState({checked:false});
   }
 
   getData = (householdNumber) => {
@@ -53,7 +82,6 @@ class App extends React.Component {
         .then(
             (result) => {
                 this.setState({weeks:result});
-                
                 /*
                 this.state.weeks.weeks.forEach((item) => {
                     console.log(item.week_num, item.week_sum, item.transactions);
@@ -63,7 +91,6 @@ class App extends React.Component {
                 var labs = [];
                 var x = [];
                 for(var i=0; i < this.state.weeks.weeks.length; i++) {
-                  console.log(this.state.weeks.weeks[i])
                   //this.state.dataLine.labels.append("Week " + i);
                   labs.push(this.state.weeks.weeks[i].week_num);
                   x.push(this.state.weeks.weeks[i].week_sum);
@@ -71,8 +98,8 @@ class App extends React.Component {
                 //console.log(week_sums)
                 this.setState({labels: labs})
                 this.setState({weeks_sum:x})
-                  
-                console.log(this.state.weeks_sum);
+                this.getTopDeparts();
+                this.setState({loading:false})
             }
         )
   }
@@ -86,6 +113,21 @@ class App extends React.Component {
   }
   
 render(){
+
+  var component;
+
+  if(this.state.loading) {
+    component = <p>loading</p>
+  }
+  else {
+    if(this.state.checked){
+      component = <LineChart data={this.state.weeks_sum} />
+    }
+    else {
+      component = <BarChart data={this.state.barData} labels={this.state.barLabels}/>
+    }
+  }
+
   return (
     <div id="app">
       <div className="App">
@@ -114,7 +156,7 @@ render(){
           </Navbar>
           <Row>
             <Col id="groceryList">
-              <ShoppingList />
+              <ShoppingList handler={this.handler}/>
             </Col>
 
             <Col>
@@ -136,7 +178,7 @@ render(){
                 </label>
               </div>
               <div id ="chart">
-                {this.state.checked ? <LineChart data={this.state.weeks_sum} label={this.state.labels}/> : <BarChart />}
+                {this.state.loading ? <p>loading</p> : this.state.checked ? <LineChart data={this.state.weeks_sum} labels={this.state.labels}/> : <BarChart data={this.state.barData} labels={this.state.barLabels}/>}
               </div>
               <Row>
                 <Col>

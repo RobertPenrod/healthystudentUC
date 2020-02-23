@@ -13,7 +13,7 @@ class LineChart extends React.Component {
     this.state = {
       weeks: null,
       dataLine: {
-        labels: _this.props.label,
+        labels: _this.props.labels,
         datasets: [
           {
             label: "My First dataset",
