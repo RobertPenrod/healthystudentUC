@@ -61,14 +61,13 @@ function App() {
           </Form>
         </div>
       </Navbar> 
-              <Row>
-                <Col id ="groceryList">
-                  <Row>
+            <Row id="boddyRow">
+                <Col id ="groceryList"> 
                     <ShoppingList />
-                  </Row>
                 </Col>
 
                 <Col>
+                  
                   <MDBContainer>
                     <h3 id="chartTitle">Nutritional Information</h3>
                     <HorizontalBar
@@ -109,6 +108,7 @@ function App() {
                       </label>
                     </Col>
                   </Row>
+                  
                 </Col>
               </Row>
       </div>
