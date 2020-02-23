@@ -1,0 +1,44 @@
+* {
+    font-family: comfortaa;
+  }
+  
+  #numbersLabel {
+    font-weight: bolder;
+    font-size: 25pt;
+  }
+  #numbers {
+    font-weight: bolder;
+    font-size: 25pt;
+  }
+  #chartTitle {
+    font-weight: bolder;
+    font-size: 30pt;
+  }
+  #SiteName {
+    margin-left: 3%;
+    font-weight: bold;
+    font-size: 40pt;
+    color: whitesmoke;
+    font-family: comfortaa;
+  }
+  #navBar {
+    background-color: #385397;
+  }
+  #form {
+    justify-content: end;
+  }
+  #enterBtn {
+    background-color: black;
+    outline-color: black;
+  }
+  #app {
+    background-color: whitesmoke;
+    overflow-x: hidden;
+  }
+  #groceryList {
+    margin-left: 3%;
+  }
+  #tab {
+    background-color: #385397;
+  }
+  
