@@ -13,6 +13,8 @@ import ShoppingList from './Components/ShoppingList/ShoppingList';
 import BarChart from './Components/Charts/BarChart';
 import LineChart from './Components/Charts/LineChart';
 import CostPrediction from './Components/CostPrediction/CostPrediction'
+import Spinner from 'react-bootstrap/Spinner'
+
 
 import Nicketback from './Assets/look-at-this-graph.mp3';
 class App extends React.Component {
@@ -22,11 +24,19 @@ class App extends React.Component {
       checked:false,
       weeks: null,
       weeks_sum: null,
-      labels: "test",
-      formInput: 'test'
-    };
-
-    this.getData(23)
+      labels: null,
+      selectedWeek: 0,
+      loading: true,
+      barData: null,
+      barLabels: null
+    }
+    this.spinner = <Spinner animation="border" variant="primary" />
+    this.initReq = true
+    //this.getData(23)
+    if(this.initReq) {
+      this.getData(23);
+      this.initReq = false;
+    }
   }
 
   toggleChecked = () => {
@@ -36,25 +46,51 @@ class App extends React.Component {
   };
 
   Checking() {
-      console.log("checking")
       if (this.state.checked) {
         return <LineChart />;
       }
       return <BarChart />;
   }
 
+  handler = (val) => {
+    console.log(val);
+    this.setState({selectedWeek: val});
+    this.getTopDeparts();
+  }
+
   getTopDeparts = () => {
-    var vals = this.state.weeks.weeks;
-    console.log(vals);
+    var week_data = this.state.weeks.weeks[this.state.selectedWeek];
+    console.log(week_data)
+    var dict = {}
+    week_data.transactions.forEach((t) => {
+      if(t.commodity in dict) {
+        dict[t.commodity] += parseFloat(t.cost);
+      }
+      else {
+        dict[t.commodity] = parseFloat(t.cost);
+      }
+    });
+
+    var labs = []
+    var vals = []
+
+    for (var k in dict) {
+      var v = dict[k]
+      labs.push(k);
+      vals.push(v);
+    }
+
+    this.setState({barData: vals, barLabels:labs});
+    this.setState({checked:false});
   }
 
   getData = (householdNumber) => {
+    this.setState({loading:true})
     fetch('https://us-central1-healthystudent.cloudfunctions.net/HealthyStudents-GetData?id=' + householdNumber)
         .then(res => res.json())
         .then(
             (result) => {
                 this.setState({weeks:result});
-                
                 /*
                 this.state.weeks.weeks.forEach((item) => {
                     console.log(item.week_num, item.week_sum, item.transactions);
@@ -64,7 +100,6 @@ class App extends React.Component {
                 var labs = [];
                 var x = [];
                 for(var i=0; i < this.state.weeks.weeks.length; i++) {
-                  console.log(this.state.weeks.weeks[i])
                   //this.state.dataLine.labels.append("Week " + i);
                   labs.push(this.state.weeks.weeks[i].week_num);
                   x.push(this.state.weeks.weeks[i].week_sum);
@@ -72,13 +107,14 @@ class App extends React.Component {
                 //console.log(week_sums)
                 this.setState({labels: labs})
                 this.setState({weeks_sum:x})
-                  
-                console.log(this.state.weeks_sum);
+                this.getTopDeparts();
+                this.setState({loading:false})
             }
         )
   }
 
   submitForm = (e) => {
+    console.log("submit")
     this.getData(this.state.formInput)
   }
 
@@ -109,13 +145,13 @@ render(){
                   name='formInput'
                   
                 />
-                <Button type='submit' variant="dark">Enter</Button>
+                <Button onClick={this.submitForm} variant="dark">Enter</Button>
               </Form>
             </div>
           </Navbar>
           <Row>
             <Col id="groceryList">
-              <ShoppingList />
+              {this.state.loading? this.spinner : <ShoppingList data={this.state.weeks.weeks} handler={this.handler}/>}
             </Col>
 
             <Col>
@@ -137,7 +173,7 @@ render(){
                 </label>
               </div>
               <div id ="chart">
-                {this.state.checked ? <LineChart data={this.state.weeks_sum} label={this.state.labels}/> : <BarChart />}
+                {this.state.loading ? this.spinner : this.state.checked ? <LineChart data={this.state.weeks_sum} labels={this.state.labels}/> : <BarChart data={this.state.barData} labels={this.state.barLabels}/>}
               </div>
               <Row>
                 <Col>
@@ -146,19 +182,19 @@ render(){
               </Row>
               <Row>
                 <Col>
-                  <label id="numbersLabel">Number of Servings</label>
+                  <label id="numbersLabel">Number of Purchases</label>
                 </Col>
                 <Col>
-                  <label id="numbersLabel">Price/Meal</label>
+                  <label id="numbersLabel">Price/Item</label>
                 </Col>
               </Row>
               <Row>
                 <Col>
-                  <label id="numbers">25</label>
+                  <label id="numbers">{this.state.loading ? this.spinner : this.state.weeks.weeks[this.state.selectedWeek].transactions.length}</label>
                 </Col>
 
                 <Col>
-                  <label id="numbers">25</label>
+                  <label id="numbers">{this.state.loading ? this.spinner : '$'+(parseFloat(this.state.weeks.weeks[this.state.selectedWeek].week_sum)/this.state.weeks.weeks[this.state.selectedWeek].transactions.length).toFixed(2)}</label>
                 </Col>
               </Row>
             </Col>

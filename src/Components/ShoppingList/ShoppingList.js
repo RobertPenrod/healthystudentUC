@@ -2,6 +2,7 @@ import React from 'react';
 import './ShoppingList.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ListGroup from 'react-bootstrap/ListGroup';
+import { Button } from 'react-bootstrap';
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -15,7 +16,8 @@ class ShoppingList extends React.Component
         this.state = {
             weeks: null
         }
-        this.getData()
+        this.handleClick = this.handleClick.bind(this);
+        //this.getData()
     }
     
     getData = (householdNumber) => {
@@ -38,29 +40,37 @@ class ShoppingList extends React.Component
 
         const listGroupItemStyle = {
             borderTop: '2px solid #D3D3D3',
-            borderBottom: '2px solid #D3D3D3'
+            borderBottom: '2px solid #D3D3D3',
+            zIndex: 1
         }
 
         var comps = []
         var prices = []
-        var itemCount = 50
-        for(var i = 0; i < itemCount; i++) {
+        var total = 0
+        for(var i = 0; i < this.props.data.length; i++) {
+            console.log(this.props.data[i])
+            var price = parseFloat(this.props.data[i].week_sum)
+            total += price;
+            var s_price = price.toFixed(2);
             prices.push(i);
             comps.push(
             <ListGroup.Item style={listGroupItemStyle}>
-                <ListItemRow item={i} price={'$' + prices[i]}/>
+                <ListItemRow item={this.props.data[i].week_num} price={'$' + s_price} button={<Button index={i} onClick={this.handleClick}>Get Data</Button>} />
             </ListGroup.Item>
             );
         }
 
         /* Get the total price and add listItemRow component containing it.*/
-        this.totalPrice = 0
-        for(var i = 0; i < itemCount; i++) {
-            this.totalPrice += prices[i]
-        }
-
+        this.totalPrice = total;
+        this.average = total/this.props.data.length;
         return comps;
     }
+
+    handleClick = function(e) {
+        var i = e.target.getAttribute("index")
+        this.props.handler(i);
+    }
+
     render()
     {
         const listStyle = {
@@ -73,14 +83,15 @@ class ShoppingList extends React.Component
         return (
             <div>
                 <Col>
-                    <label id="title">Shopping List</label>
+                    <label id="title">Weekly Overview</label>
                     <hr/>
-                    <ListItemRow isBold={true} item='Item' price='Price'/>
+                    <ListItemRow isBold={true} item='Week' price='Expenses'/>
                     <ListGroup variant='flush' style={listStyle}>
                         {this.generateList()}
                     </ListGroup>
                     <hr/>
                     <ListItemRow isBold={true} item='Total:' price={'$' + this.totalPrice}/>
+                    <ListItemRow isBold={true} item='Cost/Week: ' price={'$' + (this.average.toFixed(2))} />
                 </Col>
                 <p></p>
             </div>

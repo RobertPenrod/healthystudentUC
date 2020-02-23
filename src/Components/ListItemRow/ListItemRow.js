@@ -4,8 +4,11 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ListGroup from 'react-bootstrap/ListGroup';
 
-
 class ListItemRow extends React.Component{
+
+    handleClick = function(e) {
+        console.log(e.target.getAttribute("index"))
+    }
 
     render(){
         const fontStyle={
@@ -21,6 +24,9 @@ class ListItemRow extends React.Component{
                     </Col>
                     <Col>
                         <p style={fontStyle}>{this.props.price}</p>
+                    </Col>
+                    <Col>
+                        {this.props.button}
                     </Col>
                 </Row>
             </div>
