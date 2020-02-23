@@ -29,7 +29,12 @@ class App extends React.Component {
       barLabels: null
     }
     this.spinner = <Spinner animation="border" variant="primary" />
-    this.getData(23)
+    this.initReq = true
+    //this.getData(23)
+    if(this.initReq) {
+      this.getData(23);
+      this.initReq = false;
+    }
   }
 
   toggleChecked = () => {
@@ -78,6 +83,7 @@ class App extends React.Component {
   }
 
   getData = (householdNumber) => {
+    this.setState({loading:true})
     fetch('https://us-central1-healthystudent.cloudfunctions.net/HealthyStudents-GetData?id=' + householdNumber)
         .then(res => res.json())
         .then(
@@ -106,6 +112,7 @@ class App extends React.Component {
   }
 
   submitForm = (e) => {
+    console.log("submit")
     this.getData(this.state.formInput)
   }
 
@@ -136,7 +143,7 @@ render(){
                   name='formInput'
                   
                 />
-                <Button type='submit' variant="dark">Enter</Button>
+                <Button onClick={this.submitForm} variant="dark">Enter</Button>
               </Form>
             </div>
           </Navbar>
